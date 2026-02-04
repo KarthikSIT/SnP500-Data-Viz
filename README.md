@@ -1,2 +1,2 @@
 # SNP500-Data-Viz
-Data Engineering Project - SNP500 
+Data Engineering Project - S&P500 
