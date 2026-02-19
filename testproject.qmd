@@ -1,0 +1,52 @@
+---
+title: "testproject"
+format: html
+editor: visual
+---
+
+## 1.
+
+```{r}
+# Install if needed
+
+library(tidyverse)
+library(plotly)
+
+# Read file cleanly
+df <- read.csv("datasets/sp500.csv", stringsAsFactors = FALSE)
+
+# Convert date (NO format argument)
+df$date <- as.Date(df$date)
+
+# Check rows exist
+nrow(df)
+
+# Define COVID split
+covid_date <- as.Date("2020-03-11")
+
+df$Period <- ifelse(df$date < covid_date,
+                    "Before COVID",
+                    "After COVID")
+
+# Interactive line chart
+plot_ly(df,
+        x = ~date,
+        y = ~GSPC.Close,
+        color = ~Period,
+        type = "scatter",
+        mode = "lines",
+        hovertemplate = paste(
+          "<b>Date:</b> %{x}<br>",
+          "<b>Close:</b> %{y}<br>",
+          "<b>Period:</b> %{color}<extra></extra>"
+        ))
+
+
+```
+
+```{r}
+```
+
+```{r}
+
+```
