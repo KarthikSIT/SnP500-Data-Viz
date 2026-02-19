@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Seah Ming Jun (2403225)">
+<meta name="author" content="Adele Quah (2403254)">
+<meta name="author" content="Kannan Karthikeyan (2402904)">
+<meta name="author" content="Kalai (2403281)">
+<meta name="author" content="Nicholas (2401588)">
+
+<title>Team Project Proposal: Market Sentiment and S&amp;P 500</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Proposal_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Proposal_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Proposal_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Proposal_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="Proposal_files/libs/quarto-html/popper.min.js"></script>
+<script src="Proposal_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Proposal_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Proposal_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Proposal_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Proposal_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Proposal_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Proposal_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a>
+  <ul class="collapse">
+  <li><a href="#project-background" id="toc-project-background" class="nav-link" data-scroll-target="#project-background">1.1 Project Background</a></li>
+  <li><a href="#project-objective" id="toc-project-objective" class="nav-link" data-scroll-target="#project-objective">1.2 Project Objective</a></li>
+  </ul></li>
+  <li><a href="#visualization-design-and-story" id="toc-visualization-design-and-story" class="nav-link" data-scroll-target="#visualization-design-and-story">2. Visualization Design and Story</a>
+  <ul class="collapse">
+  <li><a href="#overall-story" id="toc-overall-story" class="nav-link" data-scroll-target="#overall-story">2.1 Overall Story</a></li>
+  </ul></li>
+  <li><a href="#visualization-components" id="toc-visualization-components" class="nav-link" data-scroll-target="#visualization-components">3. Visualization Components</a>
+  <ul class="collapse">
+  <li><a href="#sp-500-time-series-analysis" id="toc-sp-500-time-series-analysis" class="nav-link" data-scroll-target="#sp-500-time-series-analysis">3.1 S&amp;P 500 Time-Series Analysis</a>
+  <ul class="collapse">
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">3.1.1 Purpose</a></li>
+  <li><a href="#strengths-of-original-visualization" id="toc-strengths-of-original-visualization" class="nav-link" data-scroll-target="#strengths-of-original-visualization">3.1.2 Strengths of Original Visualization</a></li>
+  <li><a href="#weaknesses-of-original-visualization" id="toc-weaknesses-of-original-visualization" class="nav-link" data-scroll-target="#weaknesses-of-original-visualization">3.1.3 Weaknesses of Original Visualization</a></li>
+  <li><a href="#proposed-improvements" id="toc-proposed-improvements" class="nav-link" data-scroll-target="#proposed-improvements">3.1.4 Proposed Improvements</a></li>
+  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">3.1.5 Data Source</a></li>
+  </ul></li>
+  <li><a href="#financial-news-analysis" id="toc-financial-news-analysis" class="nav-link" data-scroll-target="#financial-news-analysis">3.2 Financial News Analysis</a>
+  <ul class="collapse">
+  <li><a href="#purpose-1" id="toc-purpose-1" class="nav-link" data-scroll-target="#purpose-1">3.2.1 Purpose</a></li>
+  <li><a href="#strengths-of-original-visualization-1" id="toc-strengths-of-original-visualization-1" class="nav-link" data-scroll-target="#strengths-of-original-visualization-1">3.2.2 Strengths of Original Visualization</a></li>
+  <li><a href="#weaknesses-of-original-visualization-1" id="toc-weaknesses-of-original-visualization-1" class="nav-link" data-scroll-target="#weaknesses-of-original-visualization-1">3.2.3 Weaknesses of Original Visualization</a></li>
+  <li><a href="#proposed-improvements-1" id="toc-proposed-improvements-1" class="nav-link" data-scroll-target="#proposed-improvements-1">3.2.4 Proposed Improvements</a></li>
+  </ul></li>
+  <li><a href="#google-search-trends" id="toc-google-search-trends" class="nav-link" data-scroll-target="#google-search-trends">3.3 Google Search Trends</a>
+  <ul class="collapse">
+  <li><a href="#purpose-2" id="toc-purpose-2" class="nav-link" data-scroll-target="#purpose-2">3.3.1 Purpose</a></li>
+  <li><a href="#strengths-of-original-visualization-2" id="toc-strengths-of-original-visualization-2" class="nav-link" data-scroll-target="#strengths-of-original-visualization-2">3.3.2 Strengths of Original Visualization</a></li>
+  <li><a href="#weaknesses-of-original-visualization-2" id="toc-weaknesses-of-original-visualization-2" class="nav-link" data-scroll-target="#weaknesses-of-original-visualization-2">3.3.3 Weaknesses of Original Visualization</a></li>
+  <li><a href="#proposed-improvements-2" id="toc-proposed-improvements-2" class="nav-link" data-scroll-target="#proposed-improvements-2">3.3.4 Proposed Improvements</a></li>
+  <li><a href="#data-source-1" id="toc-data-source-1" class="nav-link" data-scroll-target="#data-source-1">3.3.5 Data Source</a></li>
+  </ul></li>
+  <li><a href="#vix-volatility-index" id="toc-vix-volatility-index" class="nav-link" data-scroll-target="#vix-volatility-index">3.4 VIX Volatility Index</a>
+  <ul class="collapse">
+  <li><a href="#purpose-3" id="toc-purpose-3" class="nav-link" data-scroll-target="#purpose-3">3.4.1 Purpose</a></li>
+  <li><a href="#strengths-of-original-visualization-3" id="toc-strengths-of-original-visualization-3" class="nav-link" data-scroll-target="#strengths-of-original-visualization-3">3.4.2 Strengths of Original Visualization</a></li>
+  <li><a href="#weaknesses-of-original-visualization-3" id="toc-weaknesses-of-original-visualization-3" class="nav-link" data-scroll-target="#weaknesses-of-original-visualization-3">3.4.3 Weaknesses of Original Visualization</a></li>
+  <li><a href="#proposed-improvements-3" id="toc-proposed-improvements-3" class="nav-link" data-scroll-target="#proposed-improvements-3">3.4.4 Proposed Improvements</a></li>
+  <li><a href="#data-source-2" id="toc-data-source-2" class="nav-link" data-scroll-target="#data-source-2">3.4.5 Data Source</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#integrated-narrative-framework" id="toc-integrated-narrative-framework" class="nav-link" data-scroll-target="#integrated-narrative-framework">4. Integrated Narrative Framework</a></li>
+  <li><a href="#data-workflow" id="toc-data-workflow" class="nav-link" data-scroll-target="#data-workflow">5. Data Workflow</a>
+  <ul class="collapse">
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">5.1 Data Collection</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">5.2 Data Cleaning</a></li>
+  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">5.3 Feature Engineering</a></li>
+  <li><a href="#data-integration" id="toc-data-integration" class="nav-link" data-scroll-target="#data-integration">5.4 Data Integration</a></li>
+  <li><a href="#visualization-preparation" id="toc-visualization-preparation" class="nav-link" data-scroll-target="#visualization-preparation">5.5 Visualization Preparation</a></li>
+  </ul></li>
+  <li><a href="#planned-data-analysis" id="toc-planned-data-analysis" class="nav-link" data-scroll-target="#planned-data-analysis">6. Planned Data Analysis</a></li>
+  <li><a href="#work-distribution" id="toc-work-distribution" class="nav-link" data-scroll-target="#work-distribution">7. Work Distribution</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">8. Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">9. References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Team Project Proposal: Market Sentiment and S&amp;P 500</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Seah Ming Jun (2403225) </p>
+             <p>Adele Quah (2403254) </p>
+             <p>Kannan Karthikeyan (2402904) </p>
+             <p>Kalai (2403281) </p>
+             <p>Nicholas (2401588) </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level1">
+<h1>1. Introduction</h1>
+<section id="project-background" class="level2">
+<h2 class="anchored" data-anchor-id="project-background">1.1 Project Background</h2>
+<p>Financial markets are commonly described as systems driven by economic fundamentals and quantitative indicators. However, market performance is also significantly influenced by investor behaviour, collective expectations, and the broader information environment.</p>
+<p>The period from 2020 to 2025 provides a particularly relevant context for examining these dynamics. Beginning with the COVID-19 pandemic, global markets experienced sharp declines, followed by recovery phases shaped by fiscal stimulus, inflationary pressures, monetary tightening, and renewed technological growth. These events were accompanied by shifts in public narratives, investor attention, and perceived risk levels.</p>
+<p>Market volatility during this period suggests that price movements were not solely responses to fundamental economic data, but were also influenced by changing sentiment, uncertainty, and collective reactions to unfolding events. Patterns of heightened volatility, rapid sell-offs, and sustained rallies reflect the interaction between information flow and investor psychology.</p>
+<p>This project investigates how market performance evolves alongside changes in broader informational and behavioural factors. By examining data across this five-year period, the study aims to provide insights into how collective dynamics are reflected in financial market movements.</p>
+<hr>
+</section>
+<section id="project-objective" class="level2">
+<h2 class="anchored" data-anchor-id="project-objective">1.2 Project Objective</h2>
+<p>The objective of this project is to examine how market performance interacts with investor behaviour, information flow, and perceived risk between 1 January 2020 and 31 December 2025.</p>
+<p>To achieve this, the study will integrate multiple data dimensions:</p>
+<ol type="1">
+<li>Time-series price data of the S&amp;P 500 to analyse overall market performance and identify significant movements across different economic phases.</li>
+<li>Financial news sentiment to assess how the tone of market-related information evolves during periods of crisis, recovery, and growth.</li>
+<li>Google search trends to capture shifts in public attention and investor interest over time.</li>
+<li>The VIX volatility index to measure perceived market risk and uncertainty.</li>
+</ol>
+<p>By analysing these components collectively, the project aims to identify patterns and relationships between price movements, information flow, public attention, and market volatility. The study seeks to construct a comprehensive visual narrative that illustrates how financial markets respond to changing behavioural and informational dynamics over time.</p>
+<hr>
+</section>
+</section>
+<section id="visualization-design-and-story" class="level1">
+<h1>2. Visualization Design and Story</h1>
+<section id="overall-story" class="level2">
+<h2 class="anchored" data-anchor-id="overall-story">2.1 Overall Story</h2>
+<p>The project aims to demonstrate how periods of crisis, recovery, and renewed optimism are reflected simultaneously in price movements, volatility levels, public attention, and the informational environment.</p>
+<p>Rather than analysing these elements in isolation, the visualizations are designed to show how they interact across the selected timeframe.</p>
+<hr>
+</section>
+</section>
+<section id="visualization-components" class="level1">
+<h1>3. Visualization Components</h1>
+<section id="sp-500-time-series-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="sp-500-time-series-analysis">3.1 S&amp;P 500 Time-Series Analysis</h2>
+<section id="purpose" class="level3">
+<h3 class="anchored" data-anchor-id="purpose">3.1.1 Purpose</h3>
+</section>
+<section id="strengths-of-original-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="strengths-of-original-visualization">3.1.2 Strengths of Original Visualization</h3>
+</section>
+<section id="weaknesses-of-original-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="weaknesses-of-original-visualization">3.1.3 Weaknesses of Original Visualization</h3>
+</section>
+<section id="proposed-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="proposed-improvements">3.1.4 Proposed Improvements</h3>
+</section>
+<section id="data-source" class="level3">
+<h3 class="anchored" data-anchor-id="data-source">3.1.5 Data Source</h3>
+<hr>
+</section>
+</section>
+<section id="financial-news-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="financial-news-analysis">3.2 Financial News Analysis</h2>
+<section id="purpose-1" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-1">3.2.1 Purpose</h3>
+<p>The purpose of this component is to examine how financial news content evolves across different market phases between 2020 and 2025. This analysis seeks to capture both the dominant themes present in financial headlines and the overall tone of news coverage during periods of market decline, recovery, and growth.</p>
+<p>By analysing textual data from financial news headlines, this component provides insight into the informational environment surrounding market movements and contributes to understanding how media narratives may align with investor behaviour.</p>
+<hr>
+</section>
+<section id="strengths-of-original-visualization-1" class="level3">
+<h3 class="anchored" data-anchor-id="strengths-of-original-visualization-1">3.2.2 Strengths of Original Visualization</h3>
+<div class="text-center">
+<div id="fig-wordcloud" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-wordcloud-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../images/original_word_cloud.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-wordcloud-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Original word cloud visualization.
+</figcaption>
+</figure>
+</div>
+</div>
+<ul>
+<li>Provides a visually intuitive representation of frequently occurring words in financial headlines.</li>
+<li>Quickly highlights dominant themes within the dataset.</li>
+<li>Engages audiences through an accessible and easily interpretable format.</li>
+<li>Offers a high-level overview of recurring topics during the selected timeframe.</li>
+</ul>
+<hr>
+</section>
+<section id="weaknesses-of-original-visualization-1" class="level3">
+<h3 class="anchored" data-anchor-id="weaknesses-of-original-visualization-1">3.2.3 Weaknesses of Original Visualization</h3>
+<ul>
+<li>Word frequency alone does not capture the emotional tone of the headlines.</li>
+<li>Prominent terms may include non-informative or generic words if preprocessing is insufficient.</li>
+<li>Does not distinguish between positive, neutral, or negative narratives.</li>
+<li>Lacks temporal context and does not show how tone changes over time.</li>
+<li>Cannot directly illustrate relationships between news content and market performance.</li>
+</ul>
+<p>As a result, the original visualization provides thematic insight but limited analytical depth regarding behavioural and sentiment dynamics.</p>
+<hr>
+</section>
+<section id="proposed-improvements-1" class="level3">
+<h3 class="anchored" data-anchor-id="proposed-improvements-1">3.2.4 Proposed Improvements</h3>
+<p>To enhance analytical clarity and relevance, this component will incorporate two complementary visualizations:</p>
+<ol type="1">
+<li><p><strong>Refined Word Cloud (Frequency-Based)</strong><br>
+Stopwords and non-informative terms will be removed through preprocessing techniques such as tokenization and text cleaning. The resulting word cloud will highlight financially meaningful and recurring terms, providing a clearer representation of dominant themes.</p></li>
+<li><p><strong>Sentiment Score Visualization (Quantitative Analysis)</strong><br>
+Sentiment analysis will be performed on financial headlines to compute aggregated sentiment scores over time. These scores will be visualized using a bar chart or time-series chart to illustrate fluctuations in positive, neutral, and negative tone across different market phases.</p></li>
+</ol>
+<p>By separating thematic prominence (word frequency) from emotional tone (sentiment scoring), the visualization framework improves interpretability and allows clearer comparison with S&amp;P 500 movements and volatility levels.</p>
+<hr>
+</section>
+</section>
+<section id="google-search-trends" class="level2">
+<h2 class="anchored" data-anchor-id="google-search-trends">3.3 Google Search Trends</h2>
+<section id="purpose-2" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-2">3.3.1 Purpose</h3>
+</section>
+<section id="strengths-of-original-visualization-2" class="level3">
+<h3 class="anchored" data-anchor-id="strengths-of-original-visualization-2">3.3.2 Strengths of Original Visualization</h3>
+</section>
+<section id="weaknesses-of-original-visualization-2" class="level3">
+<h3 class="anchored" data-anchor-id="weaknesses-of-original-visualization-2">3.3.3 Weaknesses of Original Visualization</h3>
+</section>
+<section id="proposed-improvements-2" class="level3">
+<h3 class="anchored" data-anchor-id="proposed-improvements-2">3.3.4 Proposed Improvements</h3>
+</section>
+<section id="data-source-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-source-1">3.3.5 Data Source</h3>
+<hr>
+</section>
+</section>
+<section id="vix-volatility-index" class="level2">
+<h2 class="anchored" data-anchor-id="vix-volatility-index">3.4 VIX Volatility Index</h2>
+<section id="purpose-3" class="level3">
+<h3 class="anchored" data-anchor-id="purpose-3">3.4.1 Purpose</h3>
+</section>
+<section id="strengths-of-original-visualization-3" class="level3">
+<h3 class="anchored" data-anchor-id="strengths-of-original-visualization-3">3.4.2 Strengths of Original Visualization</h3>
+</section>
+<section id="weaknesses-of-original-visualization-3" class="level3">
+<h3 class="anchored" data-anchor-id="weaknesses-of-original-visualization-3">3.4.3 Weaknesses of Original Visualization</h3>
+</section>
+<section id="proposed-improvements-3" class="level3">
+<h3 class="anchored" data-anchor-id="proposed-improvements-3">3.4.4 Proposed Improvements</h3>
+</section>
+<section id="data-source-2" class="level3">
+<h3 class="anchored" data-anchor-id="data-source-2">3.4.5 Data Source</h3>
+<hr>
+</section>
+</section>
+</section>
+<section id="integrated-narrative-framework" class="level1">
+<h1>4. Integrated Narrative Framework</h1>
+<p>The four components will be combined into a unified visualization framework that aligns price movement, volatility, informational tone, and public attention within the same timeline.</p>
+<p>This integrated approach allows identification of:</p>
+<ul>
+<li>Periods of panic-driven selling<br>
+</li>
+<li>Recovery phases supported by optimism<br>
+</li>
+<li>Volatility spikes associated with uncertainty<br>
+</li>
+<li>Behavioural overreactions</li>
+</ul>
+<hr>
+</section>
+<section id="data-workflow" class="level1">
+<h1>5. Data Workflow</h1>
+<section id="data-collection" class="level2">
+<h2 class="anchored" data-anchor-id="data-collection">5.1 Data Collection</h2>
+<ul>
+<li>Download S&amp;P 500 historical prices</li>
+<li>Extract financial news headlines</li>
+<li>Retrieve VIX index data</li>
+<li>Retrieve Google Trends data</li>
+</ul>
+</section>
+<section id="data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-cleaning">5.2 Data Cleaning</h2>
+<ul>
+<li>Standardize date formats</li>
+<li>Remove missing values</li>
+<li>Filter timeframe (2020–2025)</li>
+<li>Remove duplicate entries</li>
+</ul>
+</section>
+<section id="feature-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="feature-engineering">5.3 Feature Engineering</h2>
+<ul>
+<li>Calculate daily returns</li>
+<li>Compute daily sentiment scores</li>
+<li>Categorize VIX levels</li>
+<li>Normalize search trend indices</li>
+</ul>
+</section>
+<section id="data-integration" class="level2">
+<h2 class="anchored" data-anchor-id="data-integration">5.4 Data Integration</h2>
+<ul>
+<li>Merge datasets by date</li>
+<li>Align indicators to common time scale</li>
+</ul>
+</section>
+<section id="visualization-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-preparation">5.5 Visualization Preparation</h2>
+<ul>
+<li>Tidy data structure</li>
+<li>Normalize variables for comparison</li>
+<li>Prepare interactive visualization layout</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="planned-data-analysis" class="level1">
+<h1>6. Planned Data Analysis</h1>
+<ul>
+<li>Correlation between sentiment and returns</li>
+<li>Relationship between VIX spikes and negative news periods</li>
+<li>Lag analysis between information flow and price movement</li>
+<li>Comparative analysis across market phases</li>
+</ul>
+<hr>
+</section>
+<section id="work-distribution" class="level1">
+<h1>7. Work Distribution</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Member</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Seah Ming Jun</td>
+<td>S&amp;P 500 time-series visualization</td>
+</tr>
+<tr class="even">
+<td>Adele Quah</td>
+<td>Financial news sentiment analysis &amp; word cloud</td>
+</tr>
+<tr class="odd">
+<td>Nicholas / Kannan</td>
+<td>Google search trends analysis</td>
+</tr>
+<tr class="even">
+<td>Kalai</td>
+<td>VIX categorization and volatility visualization</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="conclusion" class="level1">
+<h1>8. Conclusion</h1>
+</section>
+<section id="references" class="level1">
+<h1>9. References</h1>
+<p>https://www.r-bloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

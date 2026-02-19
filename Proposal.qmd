@@ -1,0 +1,224 @@
+---
+title: "Team Project Proposal: Market Sentiment and S&P 500"
+author:
+  - name: Seah Ming Jun (2403225)
+  - name: Adele Quah (2403254)
+  - name: Kannan Karthikeyan (2402904)
+  - name: Kalai (2403281)
+  - name: Nicholas (2401588)
+format: 
+  html:
+    toc: true
+    toc-location: left
+    toc-depth: 3
+editor: visual
+---
+
+# 1. Introduction
+
+## 1.1 Project Background
+
+Financial markets are commonly described as systems driven by economic fundamentals and quantitative indicators. However, market performance is also significantly influenced by investor behaviour, collective expectations, and the broader information environment.
+
+The period from 2020 to 2025 provides a particularly relevant context for examining these dynamics. Beginning with the COVID-19 pandemic, global markets experienced sharp declines, followed by recovery phases shaped by fiscal stimulus, inflationary pressures, monetary tightening, and renewed technological growth. These events were accompanied by shifts in public narratives, investor attention, and perceived risk levels.
+
+Market volatility during this period suggests that price movements were not solely responses to fundamental economic data, but were also influenced by changing sentiment, uncertainty, and collective reactions to unfolding events. Patterns of heightened volatility, rapid sell-offs, and sustained rallies reflect the interaction between information flow and investor psychology.
+
+This project investigates how market performance evolves alongside changes in broader informational and behavioural factors. By examining data across this five-year period, the study aims to provide insights into how collective dynamics are reflected in financial market movements.
+
+------------------------------------------------------------------------
+
+## 1.2 Project Objective
+
+The objective of this project is to examine how market performance interacts with investor behaviour, information flow, and perceived risk between 1 January 2020 and 31 December 2025.
+
+To achieve this, the study will integrate multiple data dimensions:
+
+1.  Time-series price data of the S&P 500 to analyse overall market performance and identify significant movements across different economic phases.
+2.  Financial news sentiment to assess how the tone of market-related information evolves during periods of crisis, recovery, and growth.
+3.  Google search trends to capture shifts in public attention and investor interest over time.
+4.  The VIX volatility index to measure perceived market risk and uncertainty.
+
+By analysing these components collectively, the project aims to identify patterns and relationships between price movements, information flow, public attention, and market volatility. The study seeks to construct a comprehensive visual narrative that illustrates how financial markets respond to changing behavioural and informational dynamics over time.
+
+------------------------------------------------------------------------
+
+# 2. Visualization Design and Story
+
+## 2.1 Overall Story
+
+The project aims to demonstrate how periods of crisis, recovery, and renewed optimism are reflected simultaneously in price movements, volatility levels, public attention, and the informational environment.
+
+Rather than analysing these elements in isolation, the visualizations are designed to show how they interact across the selected timeframe.
+
+------------------------------------------------------------------------
+
+# 3. Visualization Components
+
+## 3.1 S&P 500 Time-Series Analysis
+
+### 3.1.1 Purpose
+
+### 3.1.2 Strengths of Original Visualization
+
+### 3.1.3 Weaknesses of Original Visualization
+
+### 3.1.4 Proposed Improvements
+
+### 3.1.5 Data Source
+
+------------------------------------------------------------------------
+
+## 3.2 Financial News Analysis
+
+### 3.2.1 Purpose
+
+The purpose of this component is to examine how financial news content evolves across different market phases between 2020 and 2025. This analysis seeks to capture both the dominant themes present in financial headlines and the overall tone of news coverage during periods of market decline, recovery, and growth.
+
+By analysing textual data from financial news headlines, this component provides insight into the informational environment surrounding market movements and contributes to understanding how media narratives may align with investor behaviour.
+
+------------------------------------------------------------------------
+
+### 3.2.2 Strengths of Original Visualization
+
+::: {.text-center}
+![Original word cloud visualization.](../images/original_word_cloud.png){#fig-wordcloud width=70%}
+:::
+
+
+
+-   Provides a visually intuitive representation of frequently occurring words in financial headlines.
+-   Quickly highlights dominant themes within the dataset.
+-   Engages audiences through an accessible and easily interpretable format.
+-   Offers a high-level overview of recurring topics during the selected timeframe.
+
+------------------------------------------------------------------------
+
+### 3.2.3 Weaknesses of Original Visualization
+
+-   Word frequency alone does not capture the emotional tone of the headlines.
+-   Prominent terms may include non-informative or generic words if preprocessing is insufficient.
+-   Does not distinguish between positive, neutral, or negative narratives.
+-   Lacks temporal context and does not show how tone changes over time.
+-   Cannot directly illustrate relationships between news content and market performance.
+
+As a result, the original visualization provides thematic insight but limited analytical depth regarding behavioural and sentiment dynamics.
+
+------------------------------------------------------------------------
+
+### 3.2.4 Proposed Improvements
+
+To enhance analytical clarity and relevance, this component will incorporate two complementary visualizations:
+
+1.  **Refined Word Cloud (Frequency-Based)**\
+    Stopwords and non-informative terms will be removed through preprocessing techniques such as tokenization and text cleaning. The resulting word cloud will highlight financially meaningful and recurring terms, providing a clearer representation of dominant themes.
+
+2.  **Sentiment Score Visualization (Quantitative Analysis)**\
+    Sentiment analysis will be performed on financial headlines to compute aggregated sentiment scores over time. These scores will be visualized using a bar chart or time-series chart to illustrate fluctuations in positive, neutral, and negative tone across different market phases.
+
+By separating thematic prominence (word frequency) from emotional tone (sentiment scoring), the visualization framework improves interpretability and allows clearer comparison with S&P 500 movements and volatility levels.
+
+------------------------------------------------------------------------
+
+## 3.3 Google Search Trends
+
+### 3.3.1 Purpose
+
+### 3.3.2 Strengths of Original Visualization
+
+### 3.3.3 Weaknesses of Original Visualization
+
+### 3.3.4 Proposed Improvements
+
+### 3.3.5 Data Source
+
+------------------------------------------------------------------------
+
+## 3.4 VIX Volatility Index
+
+### 3.4.1 Purpose
+
+### 3.4.2 Strengths of Original Visualization
+
+### 3.4.3 Weaknesses of Original Visualization
+
+### 3.4.4 Proposed Improvements
+
+### 3.4.5 Data Source
+
+------------------------------------------------------------------------
+
+# 4. Integrated Narrative Framework
+
+The four components will be combined into a unified visualization framework that aligns price movement, volatility, informational tone, and public attention within the same timeline.
+
+This integrated approach allows identification of:
+
+-   Periods of panic-driven selling\
+-   Recovery phases supported by optimism\
+-   Volatility spikes associated with uncertainty\
+-   Behavioural overreactions
+
+------------------------------------------------------------------------
+
+# 5. Data Workflow
+
+## 5.1 Data Collection
+
+-   Download S&P 500 historical prices
+-   Extract financial news headlines
+-   Retrieve VIX index data
+-   Retrieve Google Trends data
+
+## 5.2 Data Cleaning
+
+-   Standardize date formats
+-   Remove missing values
+-   Filter timeframe (2020–2025)
+-   Remove duplicate entries
+
+## 5.3 Feature Engineering
+
+-   Calculate daily returns
+-   Compute daily sentiment scores
+-   Categorize VIX levels
+-   Normalize search trend indices
+
+## 5.4 Data Integration
+
+-   Merge datasets by date
+-   Align indicators to common time scale
+
+## 5.5 Visualization Preparation
+
+-   Tidy data structure
+-   Normalize variables for comparison
+-   Prepare interactive visualization layout
+
+------------------------------------------------------------------------
+
+# 6. Planned Data Analysis
+
+-   Correlation between sentiment and returns
+-   Relationship between VIX spikes and negative news periods
+-   Lag analysis between information flow and price movement
+-   Comparative analysis across market phases
+
+------------------------------------------------------------------------
+
+# 7. Work Distribution
+
+| Member            | Responsibility                                  |
+|-------------------|-------------------------------------------------|
+| Seah Ming Jun     | S&P 500 time-series visualization               |
+| Adele Quah        | Financial news sentiment analysis & word cloud  |
+| Nicholas / Kannan | Google search trends analysis                   |
+| Kalai             | VIX categorization and volatility visualization |
+
+------------------------------------------------------------------------
+
+# 8. Conclusion
+
+# 9. References
+
+https://www.r-bloggers.com/2018/04/an-overview-of-keyword-extraction-techniques/
