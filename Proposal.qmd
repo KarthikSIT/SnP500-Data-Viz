@@ -30,17 +30,14 @@ This project investigates how market performance evolves alongside changes in br
 
 ## 1.2 Project Objective
 
-The objective of this project is to examine how market performance interacts with investor behaviour, information flow, and perceived risk between 1 January 2020 and 31 December 2025.
+The primary objective of this project is to investigate how S&P 500 market performance interacted with investor sentiment, information flow, and perceived market risk over the five-year period from 1 January 2020 to 31 December 2025. Rather than examining these forces in isolation, the project adopts an integrated analytical framework drawing on four data dimensions:
 
-To achieve this, the study will integrate multiple data dimensions:
+1. S&P 500 price data — to track overall market performance and identify statistically significant movements across distinct economic phases, including the pandemic crisis, stimulus-driven recovery, inflationary tightening, and renewed growth.
+2. Financial news analysis — to quantify the tone and thematic content of market-related media coverage, and to assess how the informational environment evolves during periods of stress and stability.
+3. Google Search Trends — to capture shifts in public attention and retail investor interest, serving as a behavioural proxy for the level of awareness and anxiety surrounding financial markets at any given time.
+4. The VIX Volatility Index — to measure forward-looking implied volatility as priced by options markets, representing the aggregate market expectation of near-term price uncertainty.
 
-1.  Time-series price data of the S&P 500 to analyse overall market performance and identify significant movements across different economic phases.
-2.  Financial news sentiment to assess how the tone of market-related information evolves during periods of crisis, recovery, and growth.
-3.  Google search trends to capture shifts in public attention and investor interest over time.
-4.  The VIX volatility index to measure perceived market risk and uncertainty.
-
-By analysing these components collectively, the project aims to identify patterns and relationships between price movements, information flow, public attention, and market volatility. The study seeks to construct a comprehensive visual narrative that illustrates how financial markets respond to changing behavioural and informational dynamics over time.
-
+By analysing these four dimensions collectively and aligning them along a common timeline, the project aims to identify patterns of co-movement, temporal leads and lags, and divergences between price action and sentiment. The overarching goal is to construct a coherent visual narrative that illustrates how financial markets respond to, and are shaped by, the dynamic interplay between quantitative market signals, media discourse, and collective investor behaviour.
 ------------------------------------------------------------------------
 
 # 2. Visualization Design and Story
