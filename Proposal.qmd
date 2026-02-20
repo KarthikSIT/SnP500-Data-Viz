@@ -212,7 +212,7 @@ This integrated approach allows identification of:
 |-------------------|-------------------------------------------------|
 | Seah Ming Jun     | S&P 500 time-series visualization               |
 | Adele Quah        | Financial news sentiment analysis & word cloud  |
-| Nicholas / Kannan | Google search trends analysis                   |
+| Nicholas/ Karthik | Google search trends analysis                   |
 | Kalai             | VIX categorization and volatility visualization |
 
 ------------------------------------------------------------------------
