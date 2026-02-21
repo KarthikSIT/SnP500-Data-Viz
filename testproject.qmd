@@ -1,52 +1,174 @@
 ---
-title: "testproject"
+title: "test2"
 format: html
 editor: visual
 ---
 
-## 1.
+## Ming Jun's S&P-500 code
 
 ```{r}
-# Install if needed
-
+# =============================
+# Libraries
+# =============================
 library(tidyverse)
 library(plotly)
+library(lubridate)
 
-# Read file cleanly
+# =============================
+# Load Data
+# =============================
 df <- read.csv("datasets/sp500.csv", stringsAsFactors = FALSE)
-
-# Convert date (NO format argument)
 df$date <- as.Date(df$date)
+df <- df %>% arrange(date)
 
-# Check rows exist
-nrow(df)
+# =============================
+# Calculate Running Peak + Drawdown
+# =============================
+df <- df %>%
+  mutate(
+    running_peak = cummax(GSPC.Close),
+    drawdown = (GSPC.Close / running_peak - 1)
+  )
 
-# Define COVID split
-covid_date <- as.Date("2020-03-11")
+# =============================
+# Categorize Corrections
+# =============================
+df <- df %>%
+  mutate(
+    correction_type = case_when(
+      drawdown <= -0.10 ~ "Major (10%+)",
+      drawdown <= -0.06 ~ "Medium (6-10%)",
+      drawdown <= -0.03 ~ "Minor (3-6%)",
+      TRUE ~ NA_character_
+    )
+  )
 
-df$Period <- ifelse(df$date < covid_date,
-                    "Before COVID",
-                    "After COVID")
+# =============================
+# Identify continuous correction periods
+# =============================
+df <- df %>%
+  mutate(
+    correction_flag = !is.na(correction_type),
+    correction_id = with(rle(correction_flag), rep(seq_along(lengths), lengths))
+  )
 
-# Interactive line chart
-plot_ly(df,
-        x = ~date,
-        y = ~GSPC.Close,
-        color = ~Period,
-        type = "scatter",
-        mode = "lines",
-        hovertemplate = paste(
-          "<b>Date:</b> %{x}<br>",
-          "<b>Close:</b> %{y}<br>",
-          "<b>Period:</b> %{color}<extra></extra>"
-        ))
+# =============================
+# Extract Troughs for each correction period
+# =============================
+corrections_all <- df %>%
+  filter(correction_flag) %>%
+  group_by(correction_id, correction_type) %>%
+  slice_min(drawdown, n = 1) %>%  # pick global trough in the period
+  ungroup() %>%
+  mutate(
+    peak_value = running_peak,
+    trough_value = GSPC.Close,
+    pct_drop = round(drawdown * 100, 2),
+    # Peak = max close before trough within the same correction period
+    peak_date = df$date[df$GSPC.Close == max(df$GSPC.Close[df$correction_id == correction_id])][1],
+    trough_date = date,
+    duration_days = as.numeric(trough_date - peak_date),
+    duration_months = round(duration_days / 30, 1)
+  )
 
+# =============================
+# Filter corrections before 2025
+# =============================
+corrections_all <- corrections_all %>%
+  filter(trough_date < as.Date("2024-01-01"))
 
+# =============================
+# Define COVID period
+# =============================
+covid_date <- as.Date("2023-05-05")
+
+corrections_all <- corrections_all %>%
+  mutate(
+    covid_period = ifelse(trough_date < covid_date, "Before COVID Endemic", "After COVID Endemic"),
+    type_period = paste0(correction_type, "_", covid_period)
+  )
+
+df_line <- df %>%
+  mutate(covid_period = ifelse(date < covid_date, "Before COVID Endemic", "After COVID Endemic"))
+
+# =============================
+# Define colors
+# =============================
+colors_covid <- c(
+  "Minor (3-6%)_Before COVID Endemic" = "#FFD580",
+  "Minor (3-6%)_After COVID Endemic" = "#FFA500",
+  "Medium (6-10%)_Before COVID Endemic" = "#FFB347",
+  "Medium (6-10%)_After COVID Endemic" = "#FF851B",
+  "Major (10%+)_Before COVID Endemic" = "#FF6B6B",
+  "Major (10%+)_After COVID Endemic" = "#FF4136"
+)
+
+# =============================
+# Plot
+# =============================
+p <- plot_ly()
+
+# Plot S&P 500 line split by COVID period
+for(period in unique(df_line$covid_period)) {
+  period_data <- df_line %>% filter(covid_period == period)
+  line_color <- ifelse(period == "Before COVID Endemic", "#1f77b4", "#17becf")
+  
+  p <- p %>%
+    add_lines(
+      data = period_data,
+      x = ~date,
+      y = ~GSPC.Close,
+      line = list(color = line_color, width = 2.5),
+      name = paste("S&P 500 -", period),
+      hovertemplate = "<b>Date:</b> %{x}<br><b>Close:</b> %{y:.2f}<extra></extra>"
+    )
+}
+
+# Add markers for corrections
+for(tp in unique(na.omit(corrections_all$type_period))) {
+  p <- p %>%
+    add_markers(
+      data = corrections_all %>% filter(type_period == tp),
+      x = ~trough_date,
+      y = ~trough_value,
+      marker = list(
+        size = 12,
+        color = colors_covid[tp],
+        line = list(color = "black", width = 2)
+      ),
+      customdata = ~paste(
+        "Peak Date:", peak_date,
+        "<br>Trough Date:", trough_date,
+        "<br>Drop:", pct_drop, "%",
+        "<br>Duration:", duration_months, "months"
+      ),
+      name = tp,
+      hovertemplate = paste(
+        "⚠ <b>", tp, "</b><br>",
+        "%{customdata}<extra></extra>"
+      )
+    )
+}
+
+# Layout
+p <- p %>%
+  layout(
+    title = "S&P 500 — Corrections (3%+ Drawdowns)",
+    xaxis = list(title = "Date"),
+    yaxis = list(title = "Index Level"),
+    hovermode = "closest"
+  )
+
+p
 ```
 
-```{r}
-```
-
-```{r}
-
+```{=html}
+<script>
+document.querySelectorAll('.plotly-graph-div').forEach(function(graph) {
+  graph.on('plotly_click', function(data){
+    var url = data.points[0].customdata;
+    if(url) window.open(url, '_blank');  // open linked QMD chart
+  });
+});
+</script>
 ```
