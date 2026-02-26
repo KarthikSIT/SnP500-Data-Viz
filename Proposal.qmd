@@ -37,7 +37,7 @@ The primary objective of this project is to investigate how S&P 500 market perfo
 3.  Google Search Trends — to capture shifts in public attention and retail investor interest, serving as a behavioural proxy for the level of awareness and anxiety surrounding financial markets at any given time.
 4.  The VIX Volatility Index — to measure forward-looking implied volatility as priced by options markets, representing the aggregate market expectation of near-term price uncertainty.
 
-## By analysing these four dimensions collectively and aligning them along a common timeline, the project aims to identify patterns of co-movement, temporal leads and lags, and divergences between price action and sentiment. The overarching goal is to construct a coherent visual narrative that illustrates how financial markets respond to, and are shaped by, the dynamic interplay between quantitative market signals, media discourse, and collective investor behaviour.
+By analysing these four dimensions collectively and aligning them along a common timeline, the project aims to identify patterns of co-movement, temporal leads and lags, and divergences between price action and sentiment. The overarching goal is to construct a coherent visual narrative that illustrates how financial markets respond to, and are shaped by, the dynamic interplay between quantitative market signals, media discourse, and collective investor behaviour.
 
 # 2. Visualization Design and Story
 
