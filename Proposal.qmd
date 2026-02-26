@@ -5,7 +5,7 @@ author:
   - name: Adele Quah (2403254)
   - name: Kannan Karthikeyan (2402904)
   - name: Kalai (2403281)
-  - name: Nicholas (2401588)
+  - name: Nicholas Chu (2401588)
 format: 
   html:
     toc: true
@@ -32,13 +32,12 @@ This project investigates how market performance evolves alongside changes in br
 
 The primary objective of this project is to investigate how S&P 500 market performance interacted with investor sentiment, information flow, and perceived market risk over the five-year period from 1 January 2020 to 31 December 2025. Rather than examining these forces in isolation, the project adopts an integrated analytical framework drawing on four data dimensions:
 
-1. S&P 500 price data — to track overall market performance and identify statistically significant movements across distinct economic phases, including the pandemic crisis, stimulus-driven recovery, inflationary tightening, and renewed growth.
-2. Financial news analysis — to quantify the tone and thematic content of market-related media coverage, and to assess how the informational environment evolves during periods of stress and stability.
-3. Google Search Trends — to capture shifts in public attention and retail investor interest, serving as a behavioural proxy for the level of awareness and anxiety surrounding financial markets at any given time.
-4. The VIX Volatility Index — to measure forward-looking implied volatility as priced by options markets, representing the aggregate market expectation of near-term price uncertainty.
+1.  S&P 500 price data — to track overall market performance and identify statistically significant movements across distinct economic phases, including the pandemic crisis, stimulus-driven recovery, inflationary tightening, and renewed growth.
+2.  Financial news analysis — to quantify the tone and thematic content of market-related media coverage, and to assess how the informational environment evolves during periods of stress and stability.
+3.  Google Search Trends — to capture shifts in public attention and retail investor interest, serving as a behavioural proxy for the level of awareness and anxiety surrounding financial markets at any given time.
+4.  The VIX Volatility Index — to measure forward-looking implied volatility as priced by options markets, representing the aggregate market expectation of near-term price uncertainty.
 
-By analysing these four dimensions collectively and aligning them along a common timeline, the project aims to identify patterns of co-movement, temporal leads and lags, and divergences between price action and sentiment. The overarching goal is to construct a coherent visual narrative that illustrates how financial markets respond to, and are shaped by, the dynamic interplay between quantitative market signals, media discourse, and collective investor behaviour.
-------------------------------------------------------------------------
+## By analysing these four dimensions collectively and aligning them along a common timeline, the project aims to identify patterns of co-movement, temporal leads and lags, and divergences between price action and sentiment. The overarching goal is to construct a coherent visual narrative that illustrates how financial markets respond to, and are shaped by, the dynamic interplay between quantitative market signals, media discourse, and collective investor behaviour.
 
 # 2. Visualization Design and Story
 
@@ -78,11 +77,9 @@ By analysing textual data from financial news headlines, this component provides
 
 ### 3.2.2 Strengths of Original Visualization
 
-::: {.text-center}
-![Original word cloud visualization.](../images/original_word_cloud.png){#fig-wordcloud width=70%}
+::: text-center
+![Original word cloud visualization.](../images/original_word_cloud.png){#fig-wordcloud width="70%"}
 :::
-
-
 
 -   Provides a visually intuitive representation of frequently occurring words in financial headlines.
 -   Quickly highlights dominant themes within the dataset.
@@ -119,15 +116,46 @@ By separating thematic prominence (word frequency) from emotional tone (sentimen
 
 ## 3.3 Google Search Trends
 
+### ![Search Trends Chart](../images/searchtrend.png){alt="Search Trends Chart" width="70%"} ![Viz Chart](../images/viz.png){alt="Viz Chart" width="70%"} ![Viz Chart](../images/image2.png){alt="Viz Chart" width="70%"}
+
 ### 3.3.1 Purpose
+
+The purpose of this component is to analyse how public attention and investors interest in financial markets evolved during the covid timeframe. By examining Google Search Trends for relevant keywords, we aim to capture the correlation between search interest (types of searches and frequency) and market events.
 
 ### 3.3.2 Strengths of Original Visualization
 
+-   Effectively visualizes behavioural shifts accress many topics
+
+-   highlights sentiment spikes during covid
+
+-   provides intuitive multi-category comparison
+
+The original visualization effectively captures behavioral changes across multiple topics simultaneously, allowing observation of widespread shifts in public attention during the pandemic period. It highlights major sentiment changes through visible spikes and declines in search interest, particularly during periods of heightened uncertainty.
+
+The use of multiple categories supports pattern recognition across different themes, such as consumption behavior and crisis-related concerns. Additionally, event markers add useful real-world context by linking major occurrences to sudden changes in search activity. Overall, the visualization is visually engaging, intuitive, and accessible for exploratory analysis.
+
 ### 3.3.3 Weaknesses of Original Visualization
+
+-   Overwhelming amount of information
+
+-   No direct link to financial market indicators
+
+-   Hard to isolate pre-, during, and post-COVID phases
+
+Despite its strengths, the original visualization presents a large volume of information simultaneously, which may overwhelm users and make focused analysis difficult. The reliance on normalized search interest values limits precise quantitative interpretation of sentiment intensity.
+
+Furthermore, the visualization does not directly integrate financial indicators such as stock prices or volatility measures, restricting its ability to demonstrate explicit relationships between public sentiment and market movements. The continuous timeline also lacks clear segmentation of pre-COVID, during-COVID, and post-COVID phases for structured comparison
 
 ### 3.3.4 Proposed Improvements
 
+1.  Show search trends similarly
+2.  Tailor normal, new normal and unusual according to timeline OR change to search results which has had the least to the most effect on stock prices
+3.  Clicking on search result will show the search trend during the timeline and the news headlines together with the stock price movement during the timeline. This will allow us to see the correlation between search trends, news headlines and stock price movement.
+4.  Other Factors like fear index can also be added to show the correlation between all the factors.
+
 ### 3.3.5 Data Source
+
+## [Click here](https://thenewnormal.is){target="_blank"}
 
 ------------------------------------------------------------------------
 
