@@ -179,9 +179,9 @@ The four components will be combined into a unified visualization framework that
 
 This integrated approach allows identification of:
 
--   Periods of panic-driven selling\
--   Recovery phases supported by optimism\
--   Volatility spikes associated with uncertainty\
+-   Periods of panic-driven selling
+-   Recovery phases supported by optimism
+-   Volatility spikes associated with uncertainty
 -   Behavioural overreactions
 
 ------------------------------------------------------------------------
@@ -190,35 +190,80 @@ This integrated approach allows identification of:
 
 ## 5.1 Data Collection
 
--   Download S&P 500 historical prices
--   Extract financial news headlines
--   Retrieve VIX index data
--   Retrieve Google Trends data
+This project integrates four core financial and behavioural datasets covering the period 1 January 2020 to 31 December 2025. Each dataset captures a different dimension of market dynamics.
+
+**S&P 500 historical prices**
+
+Daily closing prices of the S&P 500 (GSPC) from 1 January 2020 to 31 December 2025. This dataset serves as the primary measure of overall U.S. equity market performance and is used to compute returns, drawdowns, and correction phases.
+
+Event markers (manual inputs) Key structural events were incorporated manually for contextual analysis:
+
+-   COVID market crash onset (1 March 2020)
+-   Post-crisis transition (1 January 2022)
+-   Endemic declaration (5 May 2023)
+-   April 2025 tariff announcement
+
+**U.S. 10-Year Treasury Yield (For Karthik to edit)**
+
+Daily yield data for the US 10-Year Treasury Note from 2020 to 2025. Treasury yields are included to capture macroeconomic expectations, monetary policy shifts, and risk-on/risk-off capital flows relative to equities.
+
+**VIX Volatility Index**
+
+Daily closing values of the CBOE Volatility Index over the same period. The VIX reflects forward-looking implied volatility derived from options markets and acts as a proxy for investor fear and uncertainty.
+
+**Google Search Trends (Selected Keywords)**
+
+Weekly search interest indices obtained from Google Trends for selected market-related keywords (e.g., “stock market crash”, “recession”, “inflation”, “S&P 500”). These values are normalized on a 0-100 scale and serve as a behavioral proxy for public attention and retail investor sentiment.
 
 ## 5.2 Data Cleaning
 
--   Standardize date formats
--   Remove missing values
--   Filter timeframe (2020–2025)
--   Remove duplicate entries
+The following pre-processing steps were performed:
+
+-   Standardization of date formats using Date objects
+-   Chronological sorting of time-series observations
+-   Removal of missing values
+-   Filtering of the dataset to the defined timeframe (2020–2025)
+-   Elimination of duplicate entries where necessary
 
 ## 5.3 Feature Engineering
 
--   Calculate daily returns
--   Compute daily sentiment scores
--   Categorize VIX levels
--   Normalize search trend indices
+**Market corrections**
+
+Ahead of looking at the rising slope for the S&P500, We grouped the market corrections into low, medium, and high ranges to Identified periods when the market dropped.
+
+**VIX levels**
+
+Grouped the VIX into low, medium, and high ranges to see when market uncertainty was rising.
+
+**Treasury yield changes**
+
+Tracked day-to-day changes in government bond yields to observe shifts in the broader economic outlook.
+
+**Google search trends**
+
+Standardized search interest for financial keywords to compare public attention with market movements.
 
 ## 5.4 Data Integration
 
 -   Merge datasets by date
 -   Align indicators to common time scale
 
+Datasets are merged and aligned using the date variable as the common temporal key.
+
+Full multi-source integration (including sentiment and search behaviour data) remains part of the extended project scope.
+
 ## 5.5 Visualization Preparation
 
--   Tidy data structure
--   Normalize variables for comparison
--   Prepare interactive visualization layout
+To make the data ready for visual exploration:
+
+**Organize the data neatly**\
+- Put all variables into a clear, consistent format so they can be easily plotted.
+
+**Scale the variables for comparison**\
+- Adjust values so some indicators (S&P 500, VIX, Treasury yields, Google trends) can be shown together on the some chart.
+
+**Set up the interactive dashboard**\
+- Prepare the charts with hover information, color coding, and event markers to allow easy exploration of market corrections, phases, and key events.
 
 ------------------------------------------------------------------------
 
